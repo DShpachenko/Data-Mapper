@@ -1,0 +1,19 @@
+openapi: 3.0.1
+info:
+  title: 'Data-Mapper Integration API'
+  version: '1.0.0'
+  description: 'Микросервис "справочников" в рамках SecretCompanyNameID
+  <br>
+  <br>В качествое кода ошибки выводится название микросервиса с конкатенацией кода ошибки через двоеточие.
+  <br><br>Пример: `DATA-MAPPER:001`<br><br>
+  <b>Список кодов ошибок</b> `error_code` <b>возникающих Exceptions:</b>
+  <br><br>`000` - Unprocessable error.
+  <br><br>`001` - Too many requests in time moment.
+  <br><br>`002` - Invalid or expired token.
+  <br><br>`003` - Access denied.
+  <br><br>`004` - The table must have a parent node.
+  <br><br>`005` - Wrong parent link type.
+  <br><br>`006` - Forbidden access.
+  '
+
+paths: 'paths/_paths.yaml'

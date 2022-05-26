@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "8ebf97f3-07d7-4f52-bf43-ddd82cf2f463",
+		"name": "Data-Mapper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Entity",
+			"item": [
+				{
+					"name": "Создание схемы \"Справочник геопозиции\"",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfdXVpZCI6IjFjZTFlZTA2LTJlNjAtNGNkMy1iOGVmLTZhOTIyZjAzYzA3MyIsInR5cGUiOiJzZXJ2aWNlIn19.CZjXal14Ox0r3eys0BqcskzQm9A-6-JS_-w61bef6-Bs2hroYj1IeuvnxWO84QJZc5nG1Uwikq2vsKA0uuYBmQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Справочник геопозиции\",\n    \"symbol\": \"geo\",\n    \"type\": \"schema\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание таблицы Страны",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfdXVpZCI6IjFjZTFlZTA2LTJlNjAtNGNkMy1iOGVmLTZhOTIyZjAzYzA3MyIsInR5cGUiOiJzZXJ2aWNlIn19.CZjXal14Ox0r3eys0BqcskzQm9A-6-JS_-w61bef6-Bs2hroYj1IeuvnxWO84QJZc5nG1Uwikq2vsKA0uuYBmQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parent_id\": 1,\n    \"name\": \"Страны\",\n    \"symbol\": \"countries\",\n    \"type\": \"table\",\n    \"visibility\": \"public\",\n    \"columns\": [\n        {\n            \"name\": \"Страна\",\n            \"symbol\": \"country\",\n            \"type\": \"varchar\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание таблицы Регионы",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfdXVpZCI6IjFjZTFlZTA2LTJlNjAtNGNkMy1iOGVmLTZhOTIyZjAzYzA3MyIsInR5cGUiOiJzZXJ2aWNlIn19.CZjXal14Ox0r3eys0BqcskzQm9A-6-JS_-w61bef6-Bs2hroYj1IeuvnxWO84QJZc5nG1Uwikq2vsKA0uuYBmQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parent_id\": 2,\n    \"name\": \"Регионы\",\n    \"symbol\": \"regions\",\n    \"type\": \"table\",\n    \"visibility\": \"public\",\n    \"columns\": [\n        {\n            \"name\": \"Регион\",\n            \"symbol\": \"region\",\n            \"type\": \"varchar\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание таблицы Города со связью с Регионами внутри Страны",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfdXVpZCI6IjFjZTFlZTA2LTJlNjAtNGNkMy1iOGVmLTZhOTIyZjAzYzA3MyIsInR5cGUiOiJzZXJ2aWNlIn19.CZjXal14Ox0r3eys0BqcskzQm9A-6-JS_-w61bef6-Bs2hroYj1IeuvnxWO84QJZc5nG1Uwikq2vsKA0uuYBmQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parent_id\": 2,\n    \"name\": \"Города\",\n    \"symbol\": \"cities\",\n    \"type\": \"table\",\n    \"visibility\": \"public\",\n    \"columns\": [\n        {\n            \"name\": \"Город\",\n            \"symbol\": \"city\",\n            \"type\": \"varchar\"\n        },\n        {\n            \"name\": \"Идентификатор региона\",\n            \"symbol\": \"region_id\",\n            \"type\": \"bigint\",\n            \"relation_id\": 5\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Все справочники (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/public/directory/entity/all",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"directory",
+								"entity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Entity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity?id=3",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Visibility",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 4,\n    \"visibility\": \"private\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity/change/visibility",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity",
+								"change",
+								"visibility"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Все справочники (Private)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/entity/all",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"entity",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Column",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/column/all?entity_id=3",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"column",
+								"all"
+							],
+							"query": [
+								{
+									"key": "entity_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Relation",
+			"item": [
+				{
+					"name": "All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/directory/relation/all?from_entity_id=4&to_entity_id=3",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"directory",
+								"relation",
+								"all"
+							],
+							"query": [
+								{
+									"key": "from_entity_id",
+									"value": "4"
+								},
+								{
+									"key": "to_entity_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Abstract",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"columns\": {\n        \"country\": \"Россия\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/abstract/geo/countries",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"abstract",
+								"geo",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/abstract/geo/countries/3",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"abstract",
+								"geo",
+								"countries",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/abstract/geo/countries/3",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"abstract",
+								"geo",
+								"countries",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Private",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnQiOnsidHlwZSI6ImNsaWVudCIsImJyb2tlcl9pZCI6bnVsbH0sImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb3VudF91dWlkIjoiNzUxZjI0N2EtZmJiMC00NzMxLTkyMDktYTQ3YzI0ODg1ZGZmIiwibmFtZSI6IkRtaXRyeSIsInN1cm5hbWUiOiJTaHBhY2hlbmtvIiwicGF0cm9ueW1pYyI6IkFuYXRvbGl5b3ZpY2giLCJnZW5kZXIiOiJtYWxlIiwiYmlydGhkYXkiOiIxOTkzLTEyLTE0VDIxOjAwOjAwLjAwMDAwMFoifSwicGhvbmUiOnsicGhvbmUiOjc5MTk4NzQ4MTkwLCJzdGF0dXMiOiJjb25maXJtZWQiLCJ0eXBlIjoibWFpbl9waG9uZSJ9LCJlbWFpbCI6bnVsbCwidHdvX2ZhY3Rvcl9hdXRoZW50aWNhdGlvbiI6bnVsbCwidmVyaWZpZWRfZG9jdW1lbnRzIjpudWxsLCJyb2xlcyI6W10sInBhc3N3b3JkX2lzc2V0IjpmYWxzZX0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIzNWNkYTQwYWE3OGVlOTg0NjE4ODZhNjRhYzY1Nzc1OCIsImV4cCI6MTY1NjQ0OTM0NywiaXNzIjoxNjUwNDQ5MzQ3fQ.uV1CmN-QrJLFbqttjtx3amiESV254QlA2fmo-BoZGIwzingCJQKE14v-P_UkpbygSM2vkTztf7CBZyzuVoZg9w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/abstract/geo/countries/all",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"abstract",
+								"geo",
+								"countries",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnQiOnsidHlwZSI6ImNsaWVudCIsImJyb2tlcl9pZCI6bnVsbH0sImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb3VudF91dWlkIjoiNzUxZjI0N2EtZmJiMC00NzMxLTkyMDktYTQ3YzI0ODg1ZGZmIiwibmFtZSI6IkRtaXRyeSIsInN1cm5hbWUiOiJTaHBhY2hlbmtvIiwicGF0cm9ueW1pYyI6IkFuYXRvbGl5b3ZpY2giLCJnZW5kZXIiOiJtYWxlIiwiYmlydGhkYXkiOiIxOTkzLTEyLTE0VDIxOjAwOjAwLjAwMDAwMFoifSwicGhvbmUiOnsicGhvbmUiOjc5MTk4NzQ4MTkwLCJzdGF0dXMiOiJjb25maXJtZWQiLCJ0eXBlIjoibWFpbl9waG9uZSJ9LCJlbWFpbCI6bnVsbCwidHdvX2ZhY3Rvcl9hdXRoZW50aWNhdGlvbiI6bnVsbCwidmVyaWZpZWRfZG9jdW1lbnRzIjpudWxsLCJyb2xlcyI6W10sInBhc3N3b3JkX2lzc2V0IjpmYWxzZX0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIzNWNkYTQwYWE3OGVlOTg0NjE4ODZhNjRhYzY1Nzc1OCIsImV4cCI6MTY1NjQ0OTM0NywiaXNzIjoxNjUwNDQ5MzQ3fQ.uV1CmN-QrJLFbqttjtx3amiESV254QlA2fmo-BoZGIwzingCJQKE14v-P_UkpbygSM2vkTztf7CBZyzuVoZg9w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"columns\": {\n        \"id\": 2,\n        \"country\": \"СССР\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "dm.mdm.local/api/v1/private/abstract/geo/countries",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"private",
+								"abstract",
+								"geo",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Public",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "dm.mdm.local/api/v1/public/abstract/geo/countries",
+							"host": [
+								"dm",
+								"mdm",
+								"local"
+							],
+							"path": [
+								"api",
+								"v1",
+								"public",
+								"abstract",
+								"geo",
+								"countries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,76 @@
+#/api/v1/private/abstract/{schema}/{symbol}/{id}
+patch:
+  security: []
+  tags: [Abstract]
+  summary: 'Метод обновления записи (строки) в справочнике'
+  description: '
+  Приватный метод (предназначенный для админки) для обновления записи (строки) в справочнике.
+  '
+  operationId: abstract/{schema}/{symbol}/{id}/update
+  parameters:
+    - in: header
+      name: Authorization
+      description: 'Заголовок авторизации, сюда передается access_token'
+      schema:
+        type: string
+        example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...
+  requestBody:
+    content:
+      application/json:
+        schema:
+          required:
+            - columns
+          type: object
+          properties:
+            columns:
+              description: 'Список столбцев с их наполнением по конкретному справочнику. Название столбца нужно брать
+              из метода `/api/v1/private/directory/column/all`'
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                    description: 'Идентификатор строки'
+                  __random_name__:
+                    type: string
+                    description: "Ключ - значение столбца справочника"
+                    example: "Ростов-на-Дону"
+  responses:
+    200:
+      description: 'OK'
+    400:
+      description: 'Ошибка валидации'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  validation:
+                    type: object
+    422:
+      description: 'Не обработанное исключение'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  pipeline_exception:
+                    type: object
+                    properties:
+                      error_code:
+                        type: string
+                        example: 'DATA-MAPPER:---'
+                      status:
+                        type: integer
+                        example: 422
+                      message:
+                        type: string
+                        example: 'Сообщение об не обработанном исключении'

@@ -1,0 +1,53 @@
+#/api/v1/private/abstract/{schema}/{symbol}/{id}
+delete:
+  security: []
+  tags: [Abstract]
+  summary: 'Метод удаления строки из справочника'
+  description: '
+  Приватный метод (предназначенный для админки) для удаления строки из справочника.
+  '
+  operationId: abstract/{schema}/{symbol}/{id}/delete
+  parameters:
+    - in: header
+      name: Authorization
+      description: 'Заголовок авторизации, сюда передается access_token'
+      schema:
+        type: string
+        example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...
+  responses:
+    200:
+      description: 'OK'
+    400:
+      description: 'Ошибка валидации'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  validation:
+                    type: object
+    422:
+      description: 'Не обработанное исключение'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  pipeline_exception:
+                    type: object
+                    properties:
+                      error_code:
+                        type: string
+                        example: 'DATA-MAPPER:---'
+                      status:
+                        type: integer
+                        example: 422
+                      message:
+                        type: string
+                        example: 'Сообщение об не обработанном исключении'

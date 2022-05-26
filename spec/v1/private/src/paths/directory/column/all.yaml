@@ -1,0 +1,102 @@
+#/api/v1/private/directory/column/all
+get:
+  security: []
+  tags: [Column]
+  summary: 'Метод получения списка связей справочника (relations)'
+  description: 'Приватный метод для получения списка связей справочника (relations) с другими таблицами (справочниками).'
+  operationId: directory/column/all
+  parameters:
+    - in: header
+      name: Authorization
+      description: 'Заголовок авторизации, сюда передается access_token'
+      schema:
+        type: string
+        example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...
+    - in: query
+      name: entity_id
+      description: 'Идентификатор таблицы (entity) по структуре которой необходимо получить список столбцов.'
+      schema:
+        type: integer
+        example: 2
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: "Идентификатор столбца"
+                      example: 1
+                    entity_id:
+                      type: integer
+                      description: "Идентификатор таблицы (entity) к которой столбец принадлежит"
+                      example: 2
+                    relation_id:
+                      type: integer
+                      description: "Идентификатор столбца, с которым текущей столбец имеет связь (relation)"
+                      example: 1
+                    name:
+                      type: string
+                      description: 'Название столбца отображаемое пользователю'
+                      example: 'ID'
+                    symbol:
+                      type: string
+                      description: "Название столбца в БД"
+                      example: "id"
+                    "type":
+                      type: string
+                      description: "Тип столбца: `bigint` - числовое значение (так же должен использоваться для связи с
+                      другими таблицами), `varchar` - строковое значение, `id` - идентификатор записи,
+                      `timestamps` - временная метка (создания / обновления) записи столбца
+                      "
+                      example: "id"
+                    created_at:
+                      type: string
+                      description: "Дата создания"
+                      example: "2022-04-20 12:42:56"
+                    updated_at:
+                      type: string
+                      description: "Дата обновления"
+                      example: "2022-04-20 12:42:56"
+
+    400:
+      description: 'Ошибка валидации'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  validation:
+                    type: object
+    422:
+      description: 'Не обработанное исключение'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  pipeline_exception:
+                    type: object
+                    properties:
+                      error_code:
+                        type: string
+                        example: 'DATA-MAPPER:---'
+                      status:
+                        type: integer
+                        example: 422
+                      message:
+                        type: string
+                        example: 'Сообщение об не обработанном исключении'

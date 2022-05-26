@@ -1,0 +1,150 @@
+#/api/v1/private/directory/entity
+post:
+  security: []
+  tags: [Entity]
+  summary: 'Метод добавления сущности (таблицы или схемы) справочника'
+  description: '
+  Приватный метод (предназначенный для админки) для добавления новой сущности (таблицы или схемы) справочника.
+  При указании в качестве `parent_id` идентификатор схемы - новый справочник будет включен в данную схему.
+  Если же в качестве родительского узла указать идентификатор таблицы - то новая таблица будет связана с "родительской"
+  через `foreign key` на уровне БД.
+  '
+  operationId: directory/entity/create
+  parameters:
+    - in: header
+      name: Authorization
+      description: 'Заголовок авторизации, сюда передается access_token'
+      schema:
+        type: string
+        example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...
+  requestBody:
+    content:
+      application/json:
+        schema:
+          required:
+            - name
+            - symbol
+            - type
+          type: object
+          properties:
+            parent_id:
+              type: integer
+              description: 'Идентификатор родительского узла (таблицы / схемы)'
+              example: 1
+            name:
+              description: 'Название для визуального отображения (может быть на русском)'
+              type: string
+              example: 'Города'
+            symbol:
+              description: 'Название схемы / таблицы (только на английском)'
+              type: string
+              example: 'cities'
+            type:
+              description: 'Тип объекта: `schema` - схема БД (корневой узел), `table` - таблица внутри схемы'
+              type: string
+              example: 'table'
+            visibility:
+              type: string
+              description: "Тип видимости: `public` - публичный доступ, `private` - только админка и интеграции"
+              example: "public"
+            columns:
+              description: 'Список столбцев новой сущности (справочника). Поле обязательно при `type = table`'
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: "Название столбца таблицы отображаемое пользователю (может быть на русском)"
+                    example: "Город"
+                  symbol:
+                    type: string
+                    description: "Название столбца таблицы, должно быть на английском!"
+                    example: "city"
+                  type:
+                    type: string
+                    description: '
+                    Тип данныйх столбца: `bigint` - числовое значение (так же должен использоваться для связи с другими
+                    таблицами), `varchar` - строковое значение
+                    '
+                    example: "varchar"
+  responses:
+    201:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: "Идентификатор записи"
+                    example: 2
+                  parent_id:
+                    type: integer
+                    description: "Идентификатор родительского узла наследования (к примеру схемы или таблицы связи)"
+                    example: 1
+                  schema:
+                    type: string
+                    description: "Название схемы созданной в БД данного справочника"
+                    example: "geo"
+                  name:
+                    type: string
+                    description: "Название таблицы отображаемое пользователю (может быть на русском)"
+                    example: "Города"
+                  symbol:
+                    type: string
+                    description: "Название таблицы в БД, должно быть на английском!"
+                    example: "cities"
+                  type:
+                    type: string
+                    description: "Тип объекта: `schema` - схема БД (корневой узел), `table` - таблица внутри схемы"
+                    example: "cities"
+                  visibility:
+                    type: string
+                    description: "Тип видимости: `public` - публичный доступ, `private` - только админка и интеграции"
+                    example: "public"
+                  created_at:
+                    type: string
+                    description: "Дата создания"
+                    example: "2022-04-20 12:42:56"
+                  updated_at:
+                    type: string
+                    description: "Дата обновления"
+                    example: "2022-04-20 12:42:56"
+    400:
+      description: 'Ошибка валидации'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  validation:
+                    type: object
+    422:
+      description: 'Не обработанное исключение'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  pipeline_exception:
+                    type: object
+                    properties:
+                      error_code:
+                        type: string
+                        example: 'DATA-MAPPER:---'
+                      status:
+                        type: integer
+                        example: 422
+                      message:
+                        type: string
+                        example: 'Сообщение об не обработанном исключении'

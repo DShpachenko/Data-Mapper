@@ -1,0 +1,169 @@
+openapi: 3.0.1
+info:
+  title: 'Data-Mapper Public API'
+  version: 1.0.0
+  description: 'Микросервис "справочников" в рамках SecretCompanyNameID <br> <br>В качествое кода ошибки выводится название микросервиса с конкатенацией кода ошибки через двоеточие. <br><br>Пример: `DATA-MAPPER:001`<br><br> <b>Список кодов ошибок</b> `error_code` <b>возникающих Exceptions:</b> <br><br>`000` - Unprocessable error. <br><br>`001` - Too many requests in time moment. <br><br>`002` - Invalid or expired token. <br><br>`003` - Access denied. <br><br>`004` - The table must have a parent node. <br><br>`005` - Wrong parent link type. <br><br>`006` - Forbidden access. '
+paths:
+  ' /api/v1/public/abstract/{schema}/{symbol}':
+    get:
+      security: []
+      tags:
+        - Abstract
+      summary: 'Метод получения списка данных справочника'
+      description: 'Публичный метод для получения списка данных по справочнику, где `schema` - схема БД справочника, `symbol` - таблица справочника. Структура объектов возвращаемого массива не фиксирована. Получить информацию можно только по публичным (`visibility = public`) справочникам!'
+      operationId: 'abstract/{schema}/{symbol}/all'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: 'Заголовок авторизации, сюда передается access_token'
+          schema:
+            type: string
+            example: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    items:
+                      type: object
+                      example:
+                        id: 1
+                        some_columns: 1
+                        created_at: '2022-04-20 12:42:56'
+                        updated_at: '2022-04-20 12:42:56'
+        400:
+          description: 'Ошибка валидации'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      validation:
+                        type: object
+        422:
+          description: 'Не обработанное исключение'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      pipeline_exception:
+                        type: object
+                        properties:
+                          error_code:
+                            type: string
+                            example: 'DATA-MAPPER:---'
+                          status:
+                            type: integer
+                            example: 422
+                          message:
+                            type: string
+                            example: 'Сообщение об не обработанном исключении'
+  '  /api/v1/public/directory/entity/all':
+    get:
+      security: []
+      tags:
+        - Entity
+      summary: 'Метод получения списка справочников'
+      description: 'Публичный метод для получения списка справочников, доступных для публичного просмотра.'
+      operationId: directory/entity/all
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: 'Заголовок авторизации, сюда передается access_token'
+          schema:
+            type: string
+            example: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: 'Идентификатор записи'
+                          example: 2
+                        parent_id:
+                          type: integer
+                          description: 'Идентификатор родительского узла наследования (к примеру схемы или таблицы связи)'
+                          example: 1
+                        schema:
+                          type: string
+                          description: 'Название схемы созданной в БД данного справочника'
+                          example: geo
+                        name:
+                          type: string
+                          description: 'Название таблицы отображаемое пользователю (может быть на русском)'
+                          example: Города
+                        symbol:
+                          type: string
+                          description: 'Название таблицы в БД, должно быть на английском!'
+                          example: cities
+                        type:
+                          type: string
+                          description: 'Тип объекта: `schema` - схема БД (корневой узел), `table` - таблица внутри схемы'
+                          example: cities
+                        visibility:
+                          type: string
+                          description: 'Тип видимости: `public` - публичный доступ, `private` - только админка и интеграции'
+                          example: public
+                        created_at:
+                          type: string
+                          description: 'Дата создания'
+                          example: '2022-04-20 12:42:56'
+                        updated_at:
+                          type: string
+                          description: 'Дата обновления'
+                          example: '2022-04-20 12:42:56'
+        400:
+          description: 'Ошибка валидации'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      validation:
+                        type: object
+        422:
+          description: 'Не обработанное исключение'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      pipeline_exception:
+                        type: object
+                        properties:
+                          error_code:
+                            type: string
+                            example: 'DATA-MAPPER:---'
+                          status:
+                            type: integer
+                            example: 422
+                          message:
+                            type: string
+                            example: 'Сообщение об не обработанном исключении'

@@ -1,0 +1,24 @@
+#Paths
+# dictionaries
+
+POST - /api/v1/private/directory/entity: '/directory/entity/create.yaml'
+
+GET - /api/v1/private/directory/entity/all: '/directory/entity/all.yaml'
+
+POST - /api/v1/private/directory/entity/change/visibility: '/directory/entity/changeVisibility.yaml'
+
+DELETE - /api/v1/private/directory/entity: '/directory/entity/delete.yaml'
+
+GET - /api/v1/private/directory/relation/all: '/directory/relation/all.yaml'
+
+GET - /api/v1/private/directory/column/all: '/directory/column/all.yaml'
+
+POST - /api/v1/private/abstract/{schema}/{symbol}: '/abstract/create.yaml'
+
+PATCH - /api/v1/private/abstract/{schema}/{symbol}/{id}: '/abstract/update.yaml'
+
+GET - /api/v1/private/abstract/{schema}/{symbol}/{id}: '/abstract/get.yaml'
+
+GET - /api/v1/private/abstract/{schema}/{symbol}/all: '/abstract/all.yaml'
+
+DELETE - /api/v1/private/abstract/{schema}/{symbol}/{id}: '/abstract/delete.yaml'

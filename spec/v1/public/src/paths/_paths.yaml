@@ -1,0 +1,6 @@
+#Paths
+# dictionaries
+
+GET - /api/v1/public/abstract/{schema}/{symbol}: '/abstract/all.yaml'
+
+GET - /api/v1/public/directory/entity/all: '/directory/entity/all.yaml'

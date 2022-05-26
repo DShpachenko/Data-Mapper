@@ -1,0 +1,113 @@
+#/api/v1/private/directory/relation/all
+get:
+  security: []
+  tags: [Relation]
+  summary: 'Метод получения списка связей справочника (relations)'
+  description: 'Приватный метод для получения списка связей справочника (relations) с другими таблицами (справочниками).'
+  operationId: directory/relation/all
+  parameters:
+    - in: header
+      name: Authorization
+      description: 'Заголовок авторизации, сюда передается access_token'
+      schema:
+        type: string
+        example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImFjY291bnRfaW5mb3JtYXRpb24iOnsiYWNjb...
+    - in: query
+      name: from_entity_id
+      description: 'Идентификатор таблицы (entity) с которой идет связь, обязательно без `to_entity_id`.'
+      schema:
+        type: integer
+        example: 2
+    - in: query
+      name: to_entity_id
+      description: 'Идентификатор таблицы (entity) к которой идет связь, обязательно без `from_entity_id`.'
+      schema:
+        type: integer
+        example: 3
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: "Идентификатор записи"
+                      example: 1
+                    from_entity_id:
+                      type: integer
+                      description: "Идентификатор таблицы (entity) с которой идет связь"
+                      example: 2
+                    to_entity_id:
+                      type: integer
+                      description: "Идентификатор таблицы (entity) к которой идет связь"
+                      example: 3
+                    from_column_id:
+                      type: integer
+                      description: "Идентификатор столбца с которого идет связь"
+                      example: 2
+                    to_column_id:
+                      type: integer
+                      description: "Идентификатор столбца к которому идет связь"
+                      example: 6
+                    foreign:
+                      type: string
+                      description: "Поле связи"
+                      example: "region_id"
+                    references:
+                      type: string
+                      description: 'Поле к которому идет связь'
+                      example: 'id'
+                    table:
+                      type: string
+                      description: "Название таблицы связи"
+                      example: "geo.regions"
+                    created_at:
+                      type: string
+                      description: "Дата создания"
+                      example: "2022-04-20 12:42:56"
+                    updated_at:
+                      type: string
+                      description: "Дата обновления"
+                      example: "2022-04-20 12:42:56"
+
+    400:
+      description: 'Ошибка валидации'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  validation:
+                    type: object
+    422:
+      description: 'Не обработанное исключение'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  pipeline_exception:
+                    type: object
+                    properties:
+                      error_code:
+                        type: string
+                        example: 'DATA-MAPPER:---'
+                      status:
+                        type: integer
+                        example: 422
+                      message:
+                        type: string
+                        example: 'Сообщение об не обработанном исключении'
